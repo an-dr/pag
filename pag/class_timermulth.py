@@ -3,44 +3,60 @@ import time
 
 
 class TimerMulTh(threading.Thread):
-    def __init__(self, period_sec, timeout, out_list: list, print_val=False):
+    def __init__(self, out_list: list, period_sec=1, timeout=5, print_out=False):
         threading.Thread.__init__(self)  # init from Thread
-        self.value = out_list  # list for outer access
-        self.print_val = print_val
+        self.__value = out_list  # list for outer access
+        self.__print = print_out
         # timer params
-        self.period = period_sec
-        self.timeout = timeout
-        # self.value = 0
+        self.__period = period_sec
+        self.__timeout = timeout
+        self.__stop = True
+        # self.__value = 0
 
     def run(self):
         """
         :return:
         """
-        # self.value = [self.timeout]
+        self.__stop = False
         # === setting up a list
-        if len(self.value) == 0:
-            self.value.append(0)
-        self.value[0] = self.timeout
+        if len(self.__value) == 0:
+            self.__value.append(0)
+        self.__value[0] = self.__timeout
         # === timer while
-        while self.value[0] > self.period/2:
-            # while > half-period. At the last iteration it will cause:
-            #   - full period waiting, if remains more then half
+        while self.__value[0] > self.__period/2:
+            # while > half-__period. At the last iteration it will cause:
+            #   - full __period waiting, if remains more then half
             #   - 0 if remains the less
-            time.sleep(self.period)
-            self.value[0] -= self.period
-            if self.print_val:
-                print(self.value)
-        self.value[0] = 0
+            time.sleep(self.__period)
+            self.__value[0] -= self.__period
+            if self.__print:
+                print(self.__value)
+            if self.__stop:
+                break
+        self.__value[0] = 0
+
+    def set_period(self, n_sec: int):
+        self.__period = n_sec
+
+    def set_timeout(self, n_sec: int):
+        self.__timeout = n_sec
+
+    def set_print_mode(self, sw: bool):
+        self.__print = sw
+
+    def stop(self):
+        self.__stop = True
+        return self.__value[0]
 
 
 if __name__ == '__main__':
-    # Create new thread and value
+    # Create new thread and __value
     def example():
         val = []
-        timer = TimerMulTh(0.1, 10, val)
+        timer = TimerMulTh(0.1, 100, val, True)
         timer.start()
         while 1:
-            time.sleep(.2)
-            print('Value: ' + str(val))
+            time.sleep(5)
+            print('Value: ' + str(timer.stop()))
 
     example()

@@ -29,7 +29,7 @@ class Path:
             string = str(string)
         # fields:
         self._type = self.Type(in_type)  # path type
-        self._val = self.Value(string)  # value
+        self._val = self.Value(string)  # __value
         # self.type = self._type
         # self._val._unformat()
         self._filetype = ""
@@ -90,9 +90,13 @@ class Path:
 
     def add(self, s):
         self._val.add(s, self._type)
+        self.id()
+        self.id_filetype()
 
     def set(self, s):
         self._val.set(s)
+        self.id()
+        self.id_filetype()
 
     def set_type(self, t: PathType):
         self._val.reformat_as(t)
@@ -106,7 +110,8 @@ class Path:
 
     def remove_last(self):
         self._val.remove()
-        self.set_type(PathType.FOLDER)
+        self.id()
+        self.id_filetype()
 
     def get_parent_dir(self):
         p = Path(self.s())
@@ -134,6 +139,12 @@ class Path:
             pass
         else:
             raise self.Errors.type_er([PathType.FOLDER, PathType.FILE])
+
+    @staticmethod
+    def gwd():
+        wd = static_functions.get_py_file_folder()
+        working_dir_path = Path(wd)
+        return working_dir_path
 
     def copy_to(self, dest):
         # if (self.get_type() == PathType.FOLDER or self.get_type() == PathType.FILE) \
@@ -256,6 +267,11 @@ class Path:
             return self.v
 
         def set(self, s: str):
+            """
+            Sets value of Path value
+            :param s:
+            :return:
+            """
             try:
                 str(s)
             except TypeError:
@@ -275,6 +291,11 @@ class Path:
             self.v = p
 
         def reformat_as(self, t: PathType):
+            """
+            Formats path string as path of specific type
+            :param t:
+            :return:
+            """
             self._unformat()
             p = self.v
             p = p.replace("\\", "/")

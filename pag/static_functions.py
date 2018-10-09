@@ -3,7 +3,6 @@ import time
 import psutil
 import pag
 import subprocess
-from pag.static_function_backcomp import *
 
 
 class Process:
