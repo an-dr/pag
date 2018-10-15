@@ -1,4 +1,4 @@
-#pag
+# pag
 
 The main aim of this package is to satisfy some routing requirements in working with files and strings.
 
@@ -15,7 +15,7 @@ Class conv has a lot of static methods to:
 * Recognize type number system in conversion using '0x', '0b' and other features at writing as string 
 * Print numbers in needed form, f.ex. 16-> 0x0010;  
 
-##Installing
+## Installing
 The package is provided without any installers. Maybe a bit later I'll make a standard archive for pip
 
-##Classes
+## Classes
