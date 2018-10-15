@@ -1,5 +1,6 @@
 import serial
 
+
 class SerialInterface:
     def __init__(self):
         self.serial = serial.Serial()
@@ -32,6 +33,7 @@ class SerialInterface:
 
     def read(self, size=1):
         return self.serial.read(size)
+
 
 def main():
     pass

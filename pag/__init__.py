@@ -1,5 +1,5 @@
 from pag.static_functions import *
-from pag.static_function_backcomp import *
+from pag.class_conv import Conv
 from pag.class_pathtype import PathType
 from pag.class_path import Path
 from pag.class_args import Args

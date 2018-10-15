@@ -1,14 +1,15 @@
 import os
 import shutil
+from typing import Any
 from pag import PathType, static_functions
 
 
 class Path:
     class Errors:
         @staticmethod
-        def type_er(good_pathtype: PathType):
+        def type_er(good_pathtype: Any(PathType, list)):
             str_pathtype = ""
-            if type(good_pathtype) == list:
+            if type(good_pathtype) == list and type(good_pathtype[0]) == PathType:
                 for type_i in good_pathtype:
                     str_pathtype += str(type_i)
                     str_pathtype += " or "
@@ -42,11 +43,11 @@ class Path:
             res = (other._val.v == self._val.v) and (other._type == self._type)
             return res
         else:
-            return (self._val.v) == other
+            return self._val.v == other
 
     def __ne__(self, other):
         if isinstance(other, self.__class__):  # if has the same class
-            res =((self._type.v, self._val.v) != (other._type.v, other._val.v))
+            res = ((self._type.v, self._val.v) != (other._type.v, other._val.v))
             return res
         else:
             return self._val.v != other
@@ -80,7 +81,7 @@ class Path:
         if self._type == PathType.FILE:
             ext_location = self._val.v[-5:]
             dot = ext_location.find(".")
-            self._filetype = ext_location[dot+1:]
+            self._filetype = ext_location[dot + 1:]
         else:
             self._filetype = ""
 

@@ -27,7 +27,6 @@ class Screen:
         self.clear_screen()
         print(self._title)
 
-
     @staticmethod
     def clear_screen():
         """Clear the screen"""
@@ -54,18 +53,18 @@ class App:
     def show_active_screen(self):
         active_is_founded = False
         # for s in self.screen_list:
-            # if not active_is_founded:
+        # if not active_is_founded:
 
     def run(self):
         while self.on:
             self.show_active_screen()
-            time.sleep(1/self.upd_fps)
-
+            time.sleep(1 / self.upd_fps)
 
 
 def main():
     a = App()
     a.run()
+
 
 if __name__ == '__main__':
     main()

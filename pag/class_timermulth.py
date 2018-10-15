@@ -3,7 +3,7 @@ import time
 
 
 class TimerMulTh(threading.Thread):
-    def __init__(self, out_list: list, period_sec=1, timeout=5, print_out=False):
+    def __init__(self, out_list: list, period_sec: float =1, timeout: int =5, print_out: bool =False):
         threading.Thread.__init__(self)  # init from Thread
         self.__value = out_list  # list for outer access
         self.__print = print_out
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     # Create new thread and __value
     def example():
         val = []
-        timer = TimerMulTh(0.1, 100, val, True)
+        timer = TimerMulTh(val, 0.1, 100, True)
         timer.start()
         while 1:
             time.sleep(5)
