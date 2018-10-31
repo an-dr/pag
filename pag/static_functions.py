@@ -123,10 +123,33 @@ def set_working_dir_to(work_dir=''):
     os.chdir(work_dir)
 
 
+def send2Ftp(in_file: str, addr: str, dir: str, user: str, password: str):
+    import ftplib
+    #
+    print('Uploading...')
+    session = ftplib.FTP(addr, user, password)
+    if dir is not '':
+        session.cwd(dir)
+    file = open(in_file, 'rb')  # file to send
+    session.storbinary('STOR ' + in_file, file)  # send the file
+    file.close()  # close file and FTP
+    session.quit()
+    print('Done')
 
+def docx2pdf(in_file: str, out_file: str):
+    import comtypes.client
 
+    print('Creating PDF...')
+    in_path = os.path.abspath(in_file)
+    out_path = os.path.abspath(out_file)
+    wdFormatPDF = 17
 
-
+    word = comtypes.client.CreateObject('Word.Application')
+    doc = word.Documents.Open(in_path)
+    doc.SaveAs(out_path, FileFormat=wdFormatPDF)
+    doc.Close()
+    word.Quit()
+    print('Done')
 
 
 def cmd(*params, win=True):
