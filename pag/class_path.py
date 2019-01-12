@@ -103,7 +103,7 @@ class Path:
         self._val.reformat_as(t)
         self._type.set(t, self._val)
 
-    def s(self):
+    def s(self) -> str:
         return str(self._val)
 
     def rem(self):
