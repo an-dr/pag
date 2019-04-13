@@ -1,7 +1,5 @@
 import os
-
 import psutil
-import pag
 import subprocess
 
 
@@ -24,8 +22,8 @@ class Process:
     @staticmethod
     def run(file_path, params="") -> bool:
         if not Process.is_running(file_path.last_str()):
-            cmd = file_path.s() + " " + params
-            os.system(cmd)
+            cmd_ = file_path.s() + " " + params
+            os.system(cmd_)
             return True
 
 
@@ -108,13 +106,13 @@ def get_time_string():
     return t
 
 
-def get_py_file_folder():
+def get_py_file_folder() -> str:
     p = str(os.path.realpath(__file__))
-    return pag.Path(p)
+    return p
 
 
 def get_py_file_drive() -> str:
-    return get_py_file_folder().s()[0:2]
+    return get_py_file_folder()[0:2]
 
 
 def set_working_dir_to(work_dir=''):
@@ -123,18 +121,19 @@ def set_working_dir_to(work_dir=''):
     os.chdir(work_dir)
 
 
-def send2Ftp(in_file: str, addr: str, dir: str, user: str, password: str):
+def send2ftp(in_file: str, addr: str, direcroty: str, user: str, password: str):
     import ftplib
     #
     print('Uploading...')
     session = ftplib.FTP(addr, user, password)
-    if dir is not '':
-        session.cwd(dir)
+    if direcroty is not '':
+        session.cwd(direcroty)
     file = open(in_file, 'rb')  # file to send
     session.storbinary('STOR ' + in_file, file)  # send the file
     file.close()  # close file and FTP
     session.quit()
     print('Done')
+
 
 def docx2pdf(in_file: str, out_file: str):
     import comtypes.client
@@ -142,11 +141,11 @@ def docx2pdf(in_file: str, out_file: str):
     print('Creating PDF...')
     in_path = os.path.abspath(in_file)
     out_path = os.path.abspath(out_file)
-    wdFormatPDF = 17
+    wd_format_pdf = 17
 
     word = comtypes.client.CreateObject('Word.Application')
     doc = word.Documents.Open(in_path)
-    doc.SaveAs(out_path, FileFormat=wdFormatPDF)
+    doc.SaveAs(out_path, FileFormat=wd_format_pdf)
     doc.Close()
     word.Quit()
     print('Done')
@@ -158,15 +157,14 @@ def cmd(*params, win=True):
 
     """
     cmd_str = ''
-    p_str = ''
     for p in params:
         if type(p) == str:
             p_str = p
-        elif type(p) == pag.Path:
-            if win:
-                p_str = "\"" + p.s().replace('/', '\\') + "\""
-            else:
-                p_str = "\"" + p.s() + "\""
+        # elif type(p) == pag.Path:
+        #     if win:
+        #         p_str = "\"" + p.s().replace('/', '\\') + "\""
+        #     else:
+        #         p_str = "\"" + p.s() + "\""
         else:
             p_str = ''
         cmd_str = cmd_str + ' ' + p_str
@@ -175,24 +173,3 @@ def cmd(*params, win=True):
     (out, err) = proc.communicate()
     print(err)
     return out
-
-
-if __name__ == '__main__':
-    a = '0xaab'
-    b = '0b010100'
-    c = '0o12349'
-    d = '031231'
-    e = '0324234kj'
-    f = '0324234'
-
-    print(Conv.to_int(a))
-    print(Conv.to_int(b))
-    print(Conv.to_int(c))
-    print(Conv.to_int(d))
-    print(Conv.to_int(e))
-    print(Conv.to_int(f))
-
-    # a = '0x1'
-    # print(int(a, 16))
-
-    # cmd('start','explorer.exe', 'c:/windows')

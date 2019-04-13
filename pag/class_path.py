@@ -1,8 +1,17 @@
 import os
 import shutil
 from typing import Any
-from pag import PathType, static_functions
+from pag import static_functions
+from enum import Enum
 
+
+class PathType(Enum):
+    UNKNOWN = -1
+    FOLDER = 0
+    FILE = 1
+    rsvd = 2
+    HTTP = 3
+    SVN = 4
 
 class Path:
     class Errors:

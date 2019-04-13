@@ -1,6 +1,5 @@
 import sys
 
-
 class Args:
     def __init__(self):
         self.__args = sys.argv
