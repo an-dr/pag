@@ -1,6 +1,6 @@
 import os
 import shutil
-from typing import Any
+from typing import Union
 from pag import static_functions
 from enum import Enum
 
@@ -13,10 +13,11 @@ class PathType(Enum):
     HTTP = 3
     SVN = 4
 
+
 class Path:
     class Errors:
         @staticmethod
-        def type_er(good_pathtype: Any(PathType, list)):
+        def type_er(good_pathtype: Union[PathType, list]):
             str_pathtype = ""
             if type(good_pathtype) == list and type(good_pathtype[0]) == PathType:
                 for type_i in good_pathtype:

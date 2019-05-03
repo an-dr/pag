@@ -1,2 +1,3 @@
 comtypes
 psutil
+python-docx
