@@ -1,4 +1,5 @@
 import os
+import glob
 import psutil
 import subprocess
 
@@ -57,14 +58,6 @@ def input_formatter(in_str: str, n_symb=None,
     return formated
 
 
-def create_folder(directory: str) -> int:
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-        return 0
-    else:
-        return 1
-
-
 def pt(out: str, pr: int = 1) -> None:
     if pr == 0:
         return
@@ -80,14 +73,6 @@ def pt(out: str, pr: int = 1) -> None:
         print(out)
         return
 
-
-def is_file_or_folder(p: str) -> int:
-    if os.path.isfile(p):
-        return 1
-    elif os.path.isdir(p):
-        return 2
-    else:
-        return 0
 
 
 # @staticmethod
@@ -106,19 +91,7 @@ def get_time_string():
     return t
 
 
-def get_py_file_folder() -> str:
-    p = str(os.path.realpath(__file__))
-    return p
 
-
-def get_py_file_drive() -> str:
-    return get_py_file_folder()[0:2]
-
-
-def set_working_dir_to(work_dir=''):
-    if work_dir is '':
-        work_dir = str(os.path.realpath(__file__))
-    os.chdir(work_dir)
 
 
 def send2ftp(in_file: str, addr: str, direcroty: str, user: str, password: str):
@@ -151,6 +124,9 @@ def docx2pdf(in_file: str, out_file: str):
     print('Done')
 
 
+
+
+
 def cmd(*params, win=True):
     """
     can handle pag.Path and str
@@ -173,3 +149,4 @@ def cmd(*params, win=True):
     (out, err) = proc.communicate()
     print(err)
     return out
+
