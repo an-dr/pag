@@ -1,7 +1,7 @@
 import os
 import shutil
 from typing import Union
-from pag import static_functions
+from . import static_functions
 from enum import Enum
 
 

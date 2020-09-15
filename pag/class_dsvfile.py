@@ -1,4 +1,4 @@
-from pag import PathType, Path
+from . import PathType, Path
 
 
 class DsvFile:

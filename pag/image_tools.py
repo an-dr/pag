@@ -1,5 +1,5 @@
 import os
-from pag.path import get_file_list, path_disassemple
+from .path import get_file_list, path_disassemple
 import cv2
 
 
